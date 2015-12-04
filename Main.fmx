@@ -1,0 +1,104 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'MyMaterial'
+  ClientHeight = 470
+  ClientWidth = 820
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object Viewport3D1: TViewport3D
+    Align = Client
+    Camera = Camera1
+    Color = claDimgray
+    Margins.Left = 10.000000000000000000
+    Margins.Top = 10.000000000000000000
+    Margins.Right = 10.000000000000000000
+    Margins.Bottom = 10.000000000000000000
+    Size.Width = 800.000000000000000000
+    Size.Height = 450.000000000000000000
+    Size.PlatformDefault = False
+    UsingDesignCamera = False
+    OnMouseDown = Viewport3D1MouseDown
+    OnMouseMove = Viewport3D1MouseMove
+    OnMouseUp = Viewport3D1MouseUp
+    object Dummy1: TDummy
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+      object Dummy2: TDummy
+        Width = 1.000000000000000000
+        Height = 1.000000000000000000
+        Depth = 1.000000000000000000
+        object Camera1: TCamera
+          AngleOfView = 45.000000000000000000
+          Position.Z = -10.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+        end
+      end
+    end
+    object Grid3D1: TGrid3D
+      Marks = 4.000000000000000000
+      Frequency = 1.000000000000000000
+      LineColor = x50505050
+      Position.Y = 2.500000000000000000
+      RotationAngle.X = 270.000000000000000000
+      Width = 100.000000000000000000
+      Height = 100.000000000000000000
+      Depth = 0.001000000047497451
+      HitTest = False
+      Quanternion = '(0.707106649875641,0,0,-0.707106947898865)'
+    end
+    object Sphere1: TSphere
+      Position.X = -3.000000000000000000
+      Width = 5.000000000000000000
+      Height = 5.000000000000000000
+      Depth = 5.000000000000000000
+      Opacity = 0.999999880790710400
+      HitTest = False
+      SubdivisionsAxes = 50
+      SubdivisionsHeight = 25
+      MaterialSource = LightMaterialSource1
+      object LightMaterialSource1: TLightMaterialSource
+        Diffuse = claWhite
+        Ambient = claNull
+        Emissive = claNull
+        Specular = claWhite
+        Shininess = 50
+        Left = 65
+        Top = 25
+      end
+    end
+    object Sphere2: TSphere
+      Position.X = 3.000000000000000000
+      Width = 5.000000000000000000
+      Height = 5.000000000000000000
+      Depth = 5.000000000000000000
+      Opacity = 0.999999880790710400
+      HitTest = False
+      SubdivisionsAxes = 50
+      SubdivisionsHeight = 25
+    end
+    object Light1: TLight
+      Color = claWhite
+      LightType = Directional
+      SpotCutOff = 180.000000000000000000
+      RotationAngle.X = 315.000000000000000000
+      Width = 1.000000000000000000
+      Height = 1.000000000000000000
+      Depth = 1.000000000000000000
+      Quanternion = '(0.382683485746384,0,0,-0.923879504203796)'
+    end
+  end
+  object Timer1: TTimer
+    Interval = 10
+    OnTimer = Timer1Timer
+    Left = 765
+    Top = 25
+  end
+end
