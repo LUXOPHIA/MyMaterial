@@ -1,10 +1,10 @@
-﻿unit LIB.Material;
+﻿unit Core;
 
 interface //#################################################################### ■
 
-uses System.Classes, System.SysUtils, System.UITypes,
-     FMX.Graphics, FMX.Types3D, FMX.Materials, FMX.MaterialSources,
-     LUX, LUX.DirectX.d3dcompiler, LUX.FireMonkey.Material;
+uses System.Classes, System.UITypes,
+     FMX.Graphics, FMX.Types3D, FMX.MaterialSources,
+     LUX, LUX.FMX.Material;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -87,8 +87,6 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
-uses System.Math, System.Math.Vectors;
-
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
@@ -142,7 +140,7 @@ begin
      _DiffColor  := TShaderVarColor  .Create( '_DiffColor'  );
      _SpecColor  := TShaderVarColor  .Create( '_SpecColor'  );
      _SpecShiny  := TShaderVarFloat  .Create( '_SpecShiny'  );
-     _Lights     := TShaderVarLights .Create( '_Light'     );
+     _Lights     := TShaderVarLights .Create( '_Light'      );
      _Texture    := TShaderVarTexture.Create( '_Texture'    );
 
      _ShaderV := TShaderSourceV.Create;
