@@ -2,8 +2,8 @@
 
 interface //#################################################################### ■
 
-uses System.Classes, System.UITypes,
-     FMX.Graphics, FMX.Types3D, FMX.MaterialSources,
+uses System.Classes, System.UITypes, System.Messaging,
+     FMX.Graphics, FMX.Types3D,
      LUX, LUX.FMX.Material;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -14,7 +14,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterial
 
-     TMyMaterial = class( TMaterial )
+     TMyMaterial = class( TLuxMaterial )
      private
      protected
        _FMatrixMVP :TShaderVarMatrix;
@@ -29,8 +29,6 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _SpecShiny  :TShaderVarFloat;
        _Lights     :TShaderVarLights;
        _Texture    :TShaderVarTexture;
-       _ShaderV    :TShaderSourceV;
-       _ShaderP    :TShaderSourceP;
        ///// メソッド
        procedure DoInitialize; override;
        procedure DoApply( const Context_:TContext3D ); override;
@@ -48,10 +46,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterialSource
 
-     TMyMaterialSource = class( TMaterialSource )
+     TMyMaterialSource = class( TLuxMaterialSource<TMyMaterial> )
      private
      protected
        _Texture :TBitmap;
+       _ContextResetId :Integer;
        ///// アクセス
        function GetEmisColor :TAlphaColor;
        procedure SetEmisColor( const EmisColor_:TAlphaColor );
@@ -64,8 +63,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        function GetSpecShiny :Single;
        procedure SetSpecShiny( const SpecShiny_:Single );
        procedure SetTexture( const Texture_:TBitmap );
+       procedure ContextResetHandler( const Sender_:TObject; const Msg_:TMessage );
        ///// メソッド
-       function CreateMaterial: TMaterial; override;
        procedure DoTextureChanged( Sender_:TObject );
      public
        constructor Create( AOwner_:TComponent ); override;
@@ -76,7 +75,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property DiffColor :TAlphaColor read GetDiffColor write SetDiffColor;
        property SpecColor :TAlphaColor read GetSpecColor write SetSpecColor;
        property SpecShiny :Single      read GetSpecShiny write SetSpecShiny;
-       property Texture   :TBitmap     read _Texture     write SetTexture;
+       property Texture   :TBitmap     read   _Texture   write SetTexture  ;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -87,11 +86,13 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
+uses System.SysUtils;
+
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterialSource
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterial
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -101,6 +102,7 @@ implementation //###############################################################
 
 procedure TMyMaterial.DoInitialize;
 begin
+     inherited;
 
 end;
 
@@ -143,48 +145,32 @@ begin
      _Lights     := TShaderVarLights .Create( '_Light'      );
      _Texture    := TShaderVarTexture.Create( '_Texture'    );
 
-     _ShaderV := TShaderSourceV.Create;
-     _ShaderP := TShaderSourceP.Create;
-
      _EmisColor.Value := TAlphaColors.Null;
      _AmbiColor.Value := $FF202020;
      _DiffColor.Value := $FFFFFFFF;
      _SpecColor.Value := $FF606060;
      _SpecShiny.Value := 30;
 
-     with _ShaderV do
-     begin
-          Vars := [ _FMatrixMVP,
-                    _FMatrixMV ,
-                    _TIMatrixMV ];
+     _ShaderV.Vars := [ _FMatrixMVP,
+                        _FMatrixMV ,
+                        _TIMatrixMV ];
 
-          LoadFromFile( '..\..\_SHADER\MyMaterial.hvs' );
-     end;
-
-     with _ShaderP do
-     begin
-          Vars := [ _FMatrixMVP,
-                    _FMatrixMV ,
-                    _TIMatrixMV,
-                    _EyePos    ,
-                    _Opacity   ,
-                    _EmisColor ,
-                    _AmbiColor ,
-                    _DiffColor ,
-                    _SpecColor ,
-                    _SpecShiny ,
-                    _Lights    ,
-                    _Texture    ];
-
-          LoadFromFile( '..\..\_SHADER\MyMaterial.hps' );
-     end;
+     _ShaderP.Vars := [ _FMatrixMVP,
+                        _FMatrixMV ,
+                        _TIMatrixMV,
+                        _EyePos    ,
+                        _Opacity   ,
+                        _EmisColor ,
+                        _AmbiColor ,
+                        _DiffColor ,
+                        _SpecColor ,
+                        _SpecShiny ,
+                        _Lights    ,
+                        _Texture    ];
 end;
 
 destructor TMyMaterial.Destroy;
 begin
-     _ShaderV.Free;
-     _ShaderP.Free;
-
      _FMatrixMVP.Free;
      _FMatrixMV .Free;
      _TIMatrixMV.Free;
@@ -197,6 +183,8 @@ begin
      _SpecShiny .Free;
      _Lights    .Free;
      _Texture   .Free;
+
+     inherited;
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterialSource
@@ -209,52 +197,52 @@ end;
 
 function TMyMaterialSource.GetEmisColor :TAlphaColor;
 begin
-     Result := TMyMaterial( Material ).EmisColor.Value;
+     Result := _Material.EmisColor.Value;
 end;
 
 procedure TMyMaterialSource.SetEmisColor( const EmisColor_:TAlphaColor );
 begin
-     TMyMaterial( Material ).EmisColor.Value := EmisColor_;
+     _Material.EmisColor.Value := EmisColor_;
 end;
 
 function TMyMaterialSource.GetAmbiColor :TAlphaColor;
 begin
-     Result := TMyMaterial( Material ).AmbiColor.Value;
+     Result := _Material.AmbiColor.Value;
 end;
 
 procedure TMyMaterialSource.SetAmbiColor( const AmbiColor_:TAlphaColor );
 begin
-     TMyMaterial( Material ).AmbiColor.Value := AmbiColor_;
+     _Material.AmbiColor.Value := AmbiColor_;
 end;
 
 function TMyMaterialSource.GetDiffColor: TAlphaColor;
 begin
-     Result := TMyMaterial( Material ).DiffColor.Value;
+     Result := _Material.DiffColor.Value;
 end;
 
 procedure TMyMaterialSource.SetDiffColor( const DiffColor_:TAlphaColor );
 begin
-     TMyMaterial( Material ).DiffColor.Value := DiffColor_;
+     _Material.DiffColor.Value := DiffColor_;
 end;
 
 function TMyMaterialSource.GetSpecColor :TAlphaColor;
 begin
-     Result := TMyMaterial( Material ).SpecColor.Value;
+     Result := _Material.SpecColor.Value;
 end;
 
 procedure TMyMaterialSource.SetSpecColor( const SpecColor_:TAlphaColor );
 begin
-     TMyMaterial( Material ).SpecColor.Value := SpecColor_;
+     _Material.SpecColor.Value := SpecColor_;
 end;
 
 function TMyMaterialSource.GetSpecShiny :Single;
 begin
-     Result := TMyMaterial( Material ).SpecShiny.Value;
+     Result := _Material.SpecShiny.Value;
 end;
 
 procedure TMyMaterialSource.SetSpecShiny( const SpecShiny_:Single );
 begin
-     TMyMaterial( Material ).SpecShiny.Value := SpecShiny_;
+     _Material.SpecShiny.Value := SpecShiny_;
 end;
 
 procedure TMyMaterialSource.SetTexture( const Texture_:TBitmap );
@@ -262,16 +250,16 @@ begin
      _Texture.Assign( Texture_ );
 end;
 
-/////////////////////////////////////////////////////////////////////// メソッド
-
-function TMyMaterialSource.CreateMaterial: TMaterial;
+procedure TMyMaterialSource.ContextResetHandler( const Sender_:TObject; const Msg_:TMessage );
 begin
-     Result := TMyMaterial.Create;
+     DoTextureChanged( Self );
 end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
 
 procedure TMyMaterialSource.DoTextureChanged( Sender_:TObject );
 begin
-     if not _Texture.IsEmpty then TMyMaterial( Material ).Texture.Value := TTextureBitmap( _Texture ).Texture;
+     if not _Texture.IsEmpty then _Material.Texture.Value := TTextureBitmap( _Texture ).Texture;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
@@ -283,11 +271,15 @@ begin
      _Texture := TTextureBitmap.Create;
 
      _Texture.OnChange := DoTextureChanged;
+
+     _ContextResetId := TMessageManager.DefaultManager.SubscribeToMessage( TContextResetMessage, ContextResetHandler );
 end;
 
 destructor TMyMaterialSource.Destroy;
 begin
-     _Texture.Free;
+     TMessageManager.DefaultManager.Unsubscribe( TContextResetMessage, _ContextResetId );
+
+     FreeAndNil( _Texture );
 
      inherited;
 end;
