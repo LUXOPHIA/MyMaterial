@@ -9,6 +9,16 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      PPByte = ^PByte;
 
+     PInt8   = ^Int8;
+     PUInt8  = ^UInt8;
+     PInt16  = ^Int16;
+     PUInt16 = ^UInt16;
+     PInt32  = ^Int32;
+     PUInt32 = ^UInt32;
+
+     PIntPtr  = ^IntPtr;
+     PUIntPtr = ^UIntPtr;
+
      TArray2<TValue_> = array of TArray <TValue_>;
      TArray3<TValue_> = array of TArray2<TValue_>;
 
@@ -298,7 +308,18 @@ end;
 
 function HControl3D.GetAbsolMatrix :TMatrix3D;
 begin
-     Result := Self.GetAbsoluteMatrix;
+     if FRecalcAbsolute then
+     begin
+          if FParent is TControl3D then FAbsoluteMatrix := FLocalMatrix * TControl3D(FParent).AbsoluteMatrix
+                                   else FAbsoluteMatrix := FLocalMatrix;
+
+          Result := FAbsoluteMatrix;
+
+          FInvAbsoluteMatrix := FAbsoluteMatrix.Inverse;
+
+          FRecalcAbsolute := False;
+     end
+     else Result := FAbsoluteMatrix;
 end;
 
 procedure HControl3D.SetAbsoluteMatrix( const AbsoluteMatrix_:TMatrix3D );
@@ -359,7 +380,7 @@ end;
 
 function HCustomMesh.GetMeshData :TMeshData;
 begin
-     Result := Self.FData;
+     Result := Data;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
