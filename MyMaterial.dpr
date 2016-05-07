@@ -6,12 +6,9 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   Main in 'Main.pas' {Form1},
-  LIB.Material in '_LIBRARY\LIB.Material.pas',
   LUX in '_LIBRARY\LUX.idea\LUX.pas',
-  LUX.FireMonkey.Material in '_LIBRARY\LUX.idea\» FireMonkey\LUX.FireMonkey.Material.pas',
-  LUX.DirectX.d3dcommon in '_LIBRARY\LUX.idea\» DirectX\LUX.DirectX.d3dcommon.pas',
-  LUX.DirectX.d3dcompiler in '_LIBRARY\LUX.idea\» DirectX\LUX.DirectX.d3dcompiler.pas',
-  LUX.DirectX.d3d11shader in '_LIBRARY\LUX.idea\» DirectX\LUX.DirectX.d3d11shader.pas';
+  LUX.FMX.Material in '_LIBRARY\LUX.FMX.Material.pas',
+  Core in 'Core.pas';
 
 {$R *.res}
 

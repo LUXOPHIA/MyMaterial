@@ -59,7 +59,6 @@ object Form1: TForm1
       Width = 5.000000000000000000
       Height = 5.000000000000000000
       Depth = 5.000000000000000000
-      Opacity = 0.999999880790710400
       HitTest = False
       SubdivisionsAxes = 50
       SubdivisionsHeight = 25
@@ -79,7 +78,6 @@ object Form1: TForm1
       Width = 5.000000000000000000
       Height = 5.000000000000000000
       Depth = 5.000000000000000000
-      Opacity = 0.999999880790710400
       HitTest = False
       SubdivisionsAxes = 50
       SubdivisionsHeight = 25

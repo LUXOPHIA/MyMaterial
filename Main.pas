@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Math.Vectors,
   FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D, FMX.Viewport3D,
-  LIB.Material;
+  Core;
 
 type
   TForm1 = class(TForm)
@@ -78,9 +78,6 @@ begin
      end;
 
      Sphere2.MaterialSource := M;
-
-     Sphere1.Opacity := 1;
-     Sphere2.Opacity := 1;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
