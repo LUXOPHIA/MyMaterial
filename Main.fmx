@@ -2,101 +2,381 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'MyMaterial'
-  ClientHeight = 470
-  ClientWidth = 820
+  ClientHeight = 600
+  ClientWidth = 800
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object Viewport3D1: TViewport3D
+  object TabControl1: TTabControl
     Align = Client
-    Camera = Camera1
-    Color = claDimgray
     Margins.Left = 10.000000000000000000
     Margins.Top = 10.000000000000000000
     Margins.Right = 10.000000000000000000
     Margins.Bottom = 10.000000000000000000
-    Size.Width = 800.000000000000000000
-    Size.Height = 450.000000000000000000
+    Size.Width = 780.000000000000000000
+    Size.Height = 580.000000000000000000
     Size.PlatformDefault = False
-    UsingDesignCamera = False
-    OnMouseDown = Viewport3D1MouseDown
-    OnMouseMove = Viewport3D1MouseMove
-    OnMouseUp = Viewport3D1MouseUp
-    object Dummy1: TDummy
-      Width = 1.000000000000000000
-      Height = 1.000000000000000000
-      Depth = 1.000000000000000000
-      object Dummy2: TDummy
-        Width = 1.000000000000000000
-        Height = 1.000000000000000000
-        Depth = 1.000000000000000000
-        object Camera1: TCamera
-          AngleOfView = 45.000000000000000000
-          Position.Z = -10.000000000000000000
+    TabIndex = 0
+    TabOrder = 2
+    TabPosition = PlatformDefault
+    Sizes = (
+      780s
+      554s
+      780s
+      554s
+      780s
+      554s)
+    object TabItem1: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 47.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = #12499#12517#12540
+      ExplicitSize.cx = 47.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object Viewport3D1: TViewport3D
+        Align = Client
+        Camera = Camera1
+        Color = claDimgray
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 760.000000000000000000
+        Size.Height = 534.000000000000000000
+        Size.PlatformDefault = False
+        UsingDesignCamera = False
+        OnMouseDown = Viewport3D1MouseDown
+        OnMouseMove = Viewport3D1MouseMove
+        OnMouseUp = Viewport3D1MouseUp
+        object Dummy1: TDummy
           Width = 1.000000000000000000
           Height = 1.000000000000000000
           Depth = 1.000000000000000000
+          object Dummy2: TDummy
+            Width = 1.000000000000000000
+            Height = 1.000000000000000000
+            Depth = 1.000000000000000000
+            object Camera1: TCamera
+              AngleOfView = 60.000000000000000000
+              Position.Z = -10.000000000000000000
+              Width = 1.000000000000000000
+              Height = 1.000000000000000000
+              Depth = 1.000000000000000000
+            end
+          end
+        end
+        object Grid3D1: TGrid3D
+          Marks = 4.000000000000000000
+          Frequency = 1.000000000000000000
+          LineColor = x50505050
+          Position.Y = 2.500000000000000000
+          RotationAngle.X = 270.000000000000000000
+          Width = 100.000000000000000000
+          Height = 100.000000000000000000
+          Depth = 0.001000000047497451
+          HitTest = False
+          Quanternion = '(0.707106649875641,0,0,-0.707106947898865)'
+        end
+        object Sphere1: TSphere
+          Position.X = -3.000000000000000000
+          Width = 5.000000000000000000
+          Height = 5.000000000000000000
+          Depth = 5.000000000000000000
+          HitTest = False
+          SubdivisionsAxes = 50
+          SubdivisionsHeight = 25
+          MaterialSource = LightMaterialSource1
+          object LightMaterialSource1: TLightMaterialSource
+            Diffuse = claWhite
+            Ambient = claNull
+            Emissive = claNull
+            Specular = claWhite
+            Shininess = 50
+            Left = 80
+            Top = 60
+          end
+        end
+        object Sphere2: TSphere
+          Position.X = 3.000000000000000000
+          Width = 5.000000000000000000
+          Height = 5.000000000000000000
+          Depth = 5.000000000000000000
+          HitTest = False
+          SubdivisionsAxes = 50
+          SubdivisionsHeight = 25
+        end
+        object Light1: TLight
+          Color = claWhite
+          LightType = Directional
+          SpotCutOff = 180.000000000000000000
+          RotationAngle.X = 315.000000000000000000
+          Width = 1.000000000000000000
+          Height = 1.000000000000000000
+          Depth = 1.000000000000000000
+          Quanternion = '(0.382683485746384,0,0,-0.923879504203796)'
         end
       end
-    end
-    object Grid3D1: TGrid3D
-      Marks = 4.000000000000000000
-      Frequency = 1.000000000000000000
-      LineColor = x50505050
-      Position.Y = 2.500000000000000000
-      RotationAngle.X = 270.000000000000000000
-      Width = 100.000000000000000000
-      Height = 100.000000000000000000
-      Depth = 0.001000000047497451
-      HitTest = False
-      Quanternion = '(0.707106649875641,0,0,-0.707106947898865)'
-    end
-    object Sphere1: TSphere
-      Position.X = -3.000000000000000000
-      Width = 5.000000000000000000
-      Height = 5.000000000000000000
-      Depth = 5.000000000000000000
-      HitTest = False
-      SubdivisionsAxes = 50
-      SubdivisionsHeight = 25
-      MaterialSource = LightMaterialSource1
-      object LightMaterialSource1: TLightMaterialSource
-        Diffuse = claWhite
-        Ambient = claNull
-        Emissive = claNull
-        Specular = claWhite
-        Shininess = 50
-        Left = 65
-        Top = 25
+      object Timer1: TTimer
+        Interval = 10
+        OnTimer = Timer1Timer
+        Left = 735
+        Top = 60
       end
     end
-    object Sphere2: TSphere
-      Position.X = 3.000000000000000000
-      Width = 5.000000000000000000
-      Height = 5.000000000000000000
-      Depth = 5.000000000000000000
-      HitTest = False
-      SubdivisionsAxes = 50
-      SubdivisionsHeight = 25
+    object TabItemV: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 80.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = #38914#28857#12471#12455#12540#12480
+      ExplicitSize.cx = 80.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object MemoV: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        Lines.Strings = (
+          'static float4x4 _FMatrixMVP = transpose( FMatrixMVP );'
+          'static float4x4 _FMatrixMV  = transpose( FMatrixMV  );'
+          'static float4x4 _IMatrixMV  = transpose( IMatrixMV  );'
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
+          ''
+          
+            '//##############################################################' +
+            '################'
+          ''
+          'struct TSenderV               //'#38914#28857#12398#22793#25968#22411
+          '{'
+          '    float4 Pos :POSITION;     //'#20301#32622#65288#12525#12540#12459#12523#65289
+          '    float4 Nor :NORMAL;       //'#27861#32218#65288#12525#12540#12459#12523#65289
+          '    float4 Tex :TEXCOORD;     //'#12486#12463#12473#12481#12515#24231#27161
+          '};'
+          ''
+          'struct TResultV               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
+          '{'
+          '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
+          '    float4 Pos :TEXCOORD0;    //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
+          '    float4 Nor :NORMAL;       //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
+          '    float4 Tex :TEXCOORD1;    //'#12486#12463#12473#12481#12515#24231#27161
+          '};'
+          ''
+          
+            '////////////////////////////////////////////////////////////////' +
+            '////////////////'
+          ''
+          'TResultV MainV( TSenderV _Sender )'
+          '{'
+          '    TResultV _Result;'
+          ''
+          '    _Result.Scr = mul( _Sender.Pos, _FMatrixMVP );'
+          '    _Result.Pos = mul( _Sender.Pos, _FMatrixMV  );'
+          '    _Result.Nor = mul( _Sender.Nor, _IMatrixMV  );'
+          '    _Result.Tex =      _Sender.Tex;'
+          ''
+          '    return _Result;'
+          '}'
+          ''
+          
+            '//##############################################################' +
+            '################')
+        StyledSettings = [Size, FontColor]
+        TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
+        Align = Client
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 760.000000000000000000
+        Size.Height = 534.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Viewport.Width = 756.000000000000000000
+        Viewport.Height = 530.000000000000000000
+      end
     end
-    object Light1: TLight
-      Color = claWhite
-      LightType = Directional
-      SpotCutOff = 180.000000000000000000
-      RotationAngle.X = 315.000000000000000000
-      Width = 1.000000000000000000
-      Height = 1.000000000000000000
-      Depth = 1.000000000000000000
-      Quanternion = '(0.382683485746384,0,0,-0.923879504203796)'
+    object TabItemP: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 93.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = #12500#12463#12475#12523#12471#12455#12540#12480
+      ExplicitSize.cx = 93.000000000000000000
+      ExplicitSize.cy = 26.000000000000000000
+      object MemoP: TMemo
+        Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+        DataDetectorTypes = []
+        Lines.Strings = (
+          'static float4x4 _FMatrixMVP = transpose( FMatrixMVP );'
+          'static float4x4 _FMatrixMV  = transpose( FMatrixMV  );'
+          'static float4x4 _IMatrixMV  = transpose( IMatrixMV  );'
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
+          ''
+          'static const float Pi = 3.141592653589793;'
+          ''
+          'static const float Pi2 = Pi * 2.0;'
+          ''
+          'static const float P2i = Pi / 2.0;'
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
+          ''
+          'SamplerState _SamplerState {};'
+          ''
+          
+            '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
+            '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
+          ''
+          'float Pow2( float _X )'
+          '{'
+          '    return _X * _X;'
+          '}'
+          ''
+          'float Roo2( float _X )'
+          '{'
+          '    return sqrt( _X );'
+          '}'
+          ''
+          'float2 VectorToSky( float3 _Vector )'
+          '{'
+          '    float2 _Result;'
+          ''
+          '    _Result.x = ( Pi - atan2( _Vector.z, _Vector.x ) ) / Pi2;'
+          '    _Result.y = acos( _Vector.y ) / Pi;'
+          ''
+          '    return _Result;'
+          '}'
+          ''
+          'float Fresnel( float3 _EyeVec, float3 _NorVec, float _RefI )'
+          '{'
+          '    float A = _RefI;'
+          '    float B = dot( _EyeVec, _NorVec );'
+          '    float C = Roo2( 1.0 - Pow2( A ) * ( 1.0 - Pow2( B ) ) );'
+          ''
+          '    return pow( ( A * B - C ) / ( A * B + B ), 2.0 )'
+          '         + pow( ( A * C - C ) / ( A * C + B ), 2.0 );'
+          '}'
+          ''
+          
+            '//##############################################################' +
+            '################'
+          ''
+          'struct TSenderP               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
+          '{'
+          '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
+          '    float4 Pos :TEXCOORD0;    //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
+          '    float4 Nor :NORMAL;       //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
+          '    float4 Tex :TEXCOORD1;    //'#12486#12463#12473#12481#12515#24231#27161
+          '};'
+          ''
+          'struct TResultP               //'#12500#12463#12475#12523#12398#22793#25968#22411
+          '{'
+          '    float4 Col :SV_Target;    //'#33394
+          '};'
+          ''
+          
+            '////////////////////////////////////////////////////////////////' +
+            '////////////////'
+          ''
+          'TResultP MainP( TSenderP _Sender )'
+          '{'
+          '    TResultP _Result;'
+          ''
+          
+            '    float3 N = normalize( _Sender.Nor.xyz );                //'#34920#38754 +
+            #27861#32218#65288#12464#12525#12540#12496#12523#65289
+          
+            '    float3 L = -_Light[0].Dir.xyz;                          //'#20809#28304 +
+            #26041#21521#65288#12464#12525#12540#12496#12523#65289
+          
+            '    float3 E = normalize( _EyePos.xyz - _Sender.Pos.xyz );  //'#35222#28857 +
+            #26041#21521#65288#12464#12525#12540#12496#12523#65289
+          
+            '    float3 H = normalize( L + E );                          //'#12495#12540 +
+            #12501#12505#12463#12488#12523
+          ''
+          
+            '    float3 T = _Texture.Sample( _SamplerState, _Sender.Tex.xy ).' +
+            'rgb;  //'#12486#12463#12473#12481#12515#33394
+          ''
+          
+            '    float  D =      max( dot( L, N ), 0.0 );                //'#25313#25955 +
+            #21453#23556#38917
+          
+            '    float  S = pow( max( dot( H, N ), 0.0 ), _SpecShiny );  //'#37857#38754 +
+            #21453#23556#38917
+          ''
+          '    _Result.Col.r = _EmisColor.r'
+          '                  + _AmbiColor.r * _DiffColor.r * T.r'
+          
+            '                  + _Light[0].Col.r * ( _DiffColor.r * T.r * D +' +
+            ' _SpecColor.r * S );'
+          '    _Result.Col.g = _EmisColor.g'
+          '                  + _AmbiColor.g * _DiffColor.g * T.g'
+          
+            '                  + _Light[0].Col.g * ( _DiffColor.g * T.g * D +' +
+            ' _SpecColor.g * S );'
+          '    _Result.Col.b = _EmisColor.b'
+          '                  + _AmbiColor.b * _DiffColor.b * T.b'
+          
+            '                  + _Light[0].Col.b * ( _DiffColor.b * T.b * D +' +
+            ' _SpecColor.b * S );'
+          '    _Result.Col.a = 1;'
+          ''
+          '    _Result.Col = _Opacity * _Result.Col;'
+          ''
+          '    return _Result;'
+          '}'
+          ''
+          
+            '//##############################################################' +
+            '################')
+        StyledSettings = [Size, Style, FontColor]
+        TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
+        Align = Client
+        Margins.Left = 10.000000000000000000
+        Margins.Top = 10.000000000000000000
+        Margins.Right = 10.000000000000000000
+        Margins.Bottom = 10.000000000000000000
+        Size.Width = 760.000000000000000000
+        Size.Height = 534.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Viewport.Width = 740.000000000000000000
+        Viewport.Height = 530.000000000000000000
+      end
     end
-  end
-  object Timer1: TTimer
-    Interval = 10
-    OnTimer = Timer1Timer
-    Left = 765
-    Top = 25
   end
 end

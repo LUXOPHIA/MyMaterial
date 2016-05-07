@@ -7,10 +7,13 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Math.Vectors,
   FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D, FMX.Viewport3D,
+  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.TabControl,
   Core;
 
 type
   TForm1 = class(TForm)
+    TabControl1: TTabControl;
+    TabItem1: TTabItem;
     Viewport3D1: TViewport3D;
     Dummy1: TDummy;
     Dummy2: TDummy;
@@ -21,6 +24,10 @@ type
     LightMaterialSource1: TLightMaterialSource;
     Sphere2: TSphere;
     Timer1: TTimer;
+    TabItemV: TTabItem;
+    MemoV: TMemo;
+    TabItemP: TTabItem;
+    MemoP: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure Viewport3D1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
@@ -75,6 +82,9 @@ begin
           SpecShiny := 50;
 
           Texture.LoadFromFile( '..\..\_DATA\Earth.jpg' );
+
+          ShaderV.Source.Text := MemoV.Text;
+          ShaderP.Source.Text := MemoP.Text;
      end;
 
      Sphere2.MaterialSource := M;
