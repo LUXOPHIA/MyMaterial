@@ -1,10 +1,11 @@
-﻿unit LUX.FireMonkey.Material;
+﻿unit LUX.FMX.Material;
 
 interface //#################################################################### ■
 
 uses FMX.Types3D, System.Classes, System.UITypes, System.Generics.Collections,
      System.Math.Vectors,
-     LUX, LUX.DirectX.d3dcompiler, LUX.DirectX.d3dcommon;
+     Winapi.D3DCommon, Winapi.D3D11Shader, Winapi.D3DCompiler,
+     LUX;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -690,15 +691,15 @@ end;
 
 procedure TShaderSource.Init;
 var
-   S :AnsiString;
+   S, N, T :AnsiString;
    CSS :array of TContextShaderSource;
    A :TContextShaderArch;
-   T :AnsiString;
    H :HResult;
-   B, E :T_ID3DBlob;
+   B, E :ID3DBlob;
    C :TArray<Byte>;
 begin
      S := AnsiString( GetSources + _Source.Text );
+     N := AnsiString( _Name );
 
      CSS := [];
 
@@ -706,17 +707,17 @@ begin
      begin
           T := _Targets.Items[ A ];
 
-          H := D3DCompile( PAnsiChar( S )                  ,
-                           Length( S )                     ,
-                           PAnsiChar( AnsiString( _Name ) ),
-                           nil                             ,
-                           nil                             ,
-                           PAnsiChar( _Entry )             ,
-                           PAnsiChar( T )                  ,
-                           0                               ,
-                           0                               ,
-                           B                               ,
-                           E                                );
+          H := D3DCompile( PAnsiChar( S )     ,
+                           Length( S )        ,
+                           PAnsiChar( N )     ,
+                           nil                ,
+                           nil                ,
+                           PAnsiChar( _Entry ),
+                           PAnsiChar( T )     ,
+                           0                  ,
+                           0                  ,
+                           B                  ,
+                           E                   );
 
           if not Assigned( B ) then
           begin
@@ -774,6 +775,7 @@ begin
 
      _Targets.Add( TContextShaderArch.DX9         , 'vs_3_0'           );
      _Targets.Add( TContextShaderArch.DX11_level_9, 'vs_4_0_level_9_3' );
+     _Targets.Add( TContextShaderArch.DX11        , 'vs_5_0'           );
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TShaderSourceP
@@ -799,6 +801,7 @@ begin
 
      _Targets.Add( TContextShaderArch.DX9         , 'ps_3_0'           );
      _Targets.Add( TContextShaderArch.DX11_level_9, 'ps_4_0_level_9_3' );
+     _Targets.Add( TContextShaderArch.DX11        , 'ps_5_0'           );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
