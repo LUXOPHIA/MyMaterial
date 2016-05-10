@@ -6,9 +6,9 @@ uses
   System.StartUpCopy,
   FMX.Forms,
   Main in 'Main.pas' {Form1},
-  Core in 'Core.pas',
   LUX.FMX.Material in '_LIBRARY\LUXOPHIA\LUX.FMX\LUX.FMX.Material.pas',
-  LUX in '_LIBRARY\LUXOPHIA\LUX\LUX.pas';
+  LUX in '_LIBRARY\LUXOPHIA\LUX\LUX.pas',
+  LIB.Material in '_LIBRARY\LIB.Material.pas';
 
 {$R *.res}
 

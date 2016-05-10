@@ -8,7 +8,7 @@ uses
   System.Math.Vectors,
   FMX.Types3D, FMX.Controls3D, FMX.MaterialSources, FMX.Objects3D, FMX.Viewport3D,
   FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.TabControl,
-  Core;
+  LIB.Material;
 
 type
   TForm1 = class(TForm)
@@ -47,6 +47,10 @@ var
 implementation //############################################################### ■
 
 {$R *.fmx}
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
