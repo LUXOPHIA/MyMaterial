@@ -1,4 +1,4 @@
-﻿unit Core;
+﻿unit LIB.Material;
 
 interface //#################################################################### ■
 
@@ -30,7 +30,6 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _Lights     :TShaderVarLights;
        _Texture    :TShaderVarTexture;
        ///// メソッド
-       procedure DoInitialize; override;
        procedure DoApply( const Context_:TContext3D ); override;
      public
        constructor Create; override;
@@ -41,7 +40,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property DiffColor :TShaderVarColor   read _DiffColor;
        property SpecColor :TShaderVarColor   read _SpecColor;
        property SpecShiny :TShaderVarFloat   read _SpecShiny;
-       property Texture   :TShaderVarTexture read _Texture;
+       property Texture   :TShaderVarTexture read _Texture  ;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMyMaterialSource
@@ -49,7 +48,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TMyMaterialSource = class( TLuxMaterialSource<TMyMaterial> )
      private
      protected
-       _Texture :TBitmap;
+       _Texture        :TBitmap;
        _ContextResetId :Integer;
        ///// アクセス
        function GetEmisColor :TAlphaColor;
@@ -67,7 +66,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        ///// メソッド
        procedure DoTextureChanged( Sender_:TObject );
      public
-       constructor Create( AOwner_:TComponent ); override;
+       constructor Create( Owner_:TComponent ); override;
        destructor Destroy; override;
        ///// プロパティ
        property EmisColor :TAlphaColor read GetEmisColor write SetEmisColor;
@@ -99,12 +98,6 @@ uses System.SysUtils;
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
 /////////////////////////////////////////////////////////////////////// メソッド
-
-procedure TMyMaterial.DoInitialize;
-begin
-     inherited;
-
-end;
 
 procedure TMyMaterial.DoApply( const Context_:TContext3D );
 begin
@@ -145,12 +138,6 @@ begin
      _Lights     := TShaderVarLights .Create( '_Light'      );
      _Texture    := TShaderVarTexture.Create( '_Texture'    );
 
-     _EmisColor.Value := TAlphaColors.Null;
-     _AmbiColor.Value := $FF202020;
-     _DiffColor.Value := $FFFFFFFF;
-     _SpecColor.Value := $FF606060;
-     _SpecShiny.Value := 30;
-
      _ShaderV.Vars := [ _FMatrixMVP,
                         _FMatrixMV ,
                         _TIMatrixMV ];
@@ -167,6 +154,12 @@ begin
                         _SpecShiny ,
                         _Lights    ,
                         _Texture    ];
+
+     _EmisColor.Value := TAlphaColors.Null;
+     _AmbiColor.Value := $FF202020;
+     _DiffColor.Value := $FFFFFFFF;
+     _SpecColor.Value := $FF606060;
+     _SpecShiny.Value := 30;
 end;
 
 destructor TMyMaterial.Destroy;
@@ -264,7 +257,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TMyMaterialSource.Create( AOwner_:TComponent );
+constructor TMyMaterialSource.Create( Owner_:TComponent );
 begin
      inherited;
 
