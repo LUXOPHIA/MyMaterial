@@ -74,6 +74,12 @@ begin
 
      M := TMyMaterialSource.Create( Self );
 
+     with Sphere2 do
+     begin
+          MaterialSource := M;
+          TwoSide := True;
+     end;
+
      with M do
      begin
           EmisColor := TAlphaColors.Null;
@@ -90,8 +96,6 @@ begin
           ShaderV.Source.Text := MemoV.Text;
           ShaderP.Source.Text := MemoP.Text;
      end;
-
-     Sphere2.MaterialSource := M;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
