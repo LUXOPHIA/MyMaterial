@@ -27,7 +27,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _DiffColor  :TShaderVarColor;
        _SpecColor  :TShaderVarColor;
        _SpecShiny  :TShaderVarFloat;
-       _Lights     :TShaderVarLights;
+       _Light      :TShaderVarLight;
        _Texture    :TShaderVarTexture;
        ///// メソッド
        procedure DoApply( const Context_:TContext3D ); override;
@@ -112,7 +112,7 @@ begin
           _TIMatrixMV.Value := CurrentMatrix.Inverse.Transpose;
           _EyePos    .Value := CurrentCameraInvMatrix.M[ 3 ];
           _Opacity   .Value := CurrentOpacity;
-          _Lights    .Value := Lights[ 0 ];
+          _Light     .Value := Lights[ 0 ];
      end;
 
      _ShaderV.SendVars( Context_ );
@@ -135,7 +135,7 @@ begin
      _DiffColor  := TShaderVarColor  .Create( '_DiffColor'  );
      _SpecColor  := TShaderVarColor  .Create( '_SpecColor'  );
      _SpecShiny  := TShaderVarFloat  .Create( '_SpecShiny'  );
-     _Lights     := TShaderVarLights .Create( '_Light'      );
+     _Light      := TShaderVarLight  .Create( '_Light'      );
      _Texture    := TShaderVarTexture.Create( '_Texture'    );
 
      _ShaderV.Vars := [ _FMatrixMVP,
@@ -152,7 +152,7 @@ begin
                         _DiffColor ,
                         _SpecColor ,
                         _SpecShiny ,
-                        _Lights    ,
+                        _Light     ,
                         _Texture    ];
 
      _EmisColor.Value := TAlphaColors.Null;
@@ -174,7 +174,7 @@ begin
      _DiffColor .Free;
      _SpecColor .Free;
      _SpecShiny .Free;
-     _Lights    .Free;
+     _Light     .Free;
      _Texture   .Free;
 
      inherited;
