@@ -82,16 +82,16 @@ begin
 
      with M do
      begin
-          EmisColor := TAlphaColors.Null;
+          EmisLight := TAlphaColorF.Create( 0, 0, 0 );
 
-          AmbiColor := $FF202020;
+          AmbiLight := TAlphaColorF.Create( 0.1, 0.1, 0.1 );
 
-          DiffColor := TAlphaColors.White;
+          DiffRatio := TAlphaColorF.Create( 1, 1, 1 );
 
-          SpecColor := TAlphaColors.White;
+          SpecRatio := TAlphaColorF.Create( 1, 1, 1 );
           SpecShiny := 50;
 
-          Texture.LoadFromFile( '..\..\_DATA\Earth.jpg' );
+          DiffImage.LoadFromFile( '..\..\_DATA\Earth.jpg' );
 
           ShaderV.Source.Text := MemoV.Text;
           ShaderP.Source.Text := MemoP.Text;
