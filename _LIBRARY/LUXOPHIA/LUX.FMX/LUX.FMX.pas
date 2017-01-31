@@ -92,9 +92,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        property MeshData :TMeshData read GetMeshData;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TLuxViewport3D
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TTrueViewport3D
 
-     TLuxViewport3D = class( TViewport3D )
+     TTrueViewport3D = class( TViewport3D )
      private
        _Bitmap        :TBitmap;
        _DrawOK        :Boolean;
@@ -231,8 +231,11 @@ var
    W, H, W2, H2 :Single;
    R :TRectF;
 begin
-     W := TextWidth ( Text_ );
-     H := TextHeight( Text_ );
+     R := TRectF.Create( 0, 0, Single.MaxValue, Single.MaxValue );
+     MeasureText( R, Text_, False, [], TTextAlign.Leading, TTextAlign.Leading );
+
+     W := R.Right ;
+     H := R.Bottom;
 
      with R do
      begin
@@ -433,7 +436,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TLuxViewport3D
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TTrueViewport3D
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -441,7 +444,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TLuxViewport3D.Paint;
+procedure TTrueViewport3D.Paint;
 var
    R :TRectF;
    I :Integer;
@@ -502,7 +505,7 @@ begin
      end;
 end;
 
-procedure TLuxViewport3D.Resize;
+procedure TTrueViewport3D.Resize;
 begin
      inherited;
 
@@ -513,7 +516,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TLuxViewport3D.Create( Owner_:TComponent );
+constructor TTrueViewport3D.Create( Owner_:TComponent );
 begin
      inherited;
 
@@ -523,7 +526,7 @@ begin
      UsingDesignCamera := False;
 end;
 
-destructor TLuxViewport3D.Destroy;
+destructor TTrueViewport3D.Destroy;
 begin
      FreeAndNil( _Bitmap        );
      FreeAndNil( _RenderingList );
@@ -533,7 +536,7 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TLuxViewport3D.RebuildRenderingList;
+procedure TTrueViewport3D.RebuildRenderingList;
 var
    F :TFmxObject;
  //CompareFunc :TRenderingCompare;
