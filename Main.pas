@@ -13,21 +13,31 @@ uses
 type
   TForm1 = class(TForm)
     TabControl1: TTabControl;
-    TabItem1: TTabItem;
-    Viewport3D1: TViewport3D;
-    Dummy1: TDummy;
-    Dummy2: TDummy;
-    Camera1: TCamera;
-    Light1: TLight;
-    Grid3D1: TGrid3D;
-    Sphere1: TSphere;
-    LightMaterialSource1: TLightMaterialSource;
-    Sphere2: TSphere;
-    Timer1: TTimer;
-    TabItemV: TTabItem;
-    MemoV: TMemo;
-    TabItemP: TTabItem;
-    MemoP: TMemo;
+      TabItemV: TTabItem;
+        Viewport3D1: TViewport3D;
+          Dummy1: TDummy;
+            Dummy2: TDummy;
+              Camera1: TCamera;
+          Light1: TLight;
+          Grid3D1: TGrid3D;
+          Sphere1: TSphere;
+            LightMaterialSource1: TLightMaterialSource;
+          Sphere2: TSphere;
+        Timer1: TTimer;
+      TabItemS: TTabItem;
+        TabControlS: TTabControl;
+          TabItemSV: TTabItem;
+            TabControlSV: TTabControl;
+              TabItemSVC: TTabItem;
+                MemoSVC: TMemo;
+              TabItemSVE: TTabItem;
+                MemoSVE: TMemo;
+          TabItemSP: TTabItem;
+            TabControlSP: TTabControl;
+              TabItemSPC: TTabItem;
+                MemoSPC: TMemo;
+              TabItemSPE: TTabItem;
+                MemoSPE: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure Viewport3D1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Single);
     procedure Viewport3D1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
@@ -57,6 +67,7 @@ implementation //###############################################################
 procedure TForm1.FormCreate(Sender: TObject);
 var
    M :TMyMaterialSource;
+   T :String;
 begin
      with LightMaterialSource1 do
      begin
@@ -93,8 +104,33 @@ begin
 
           DiffImage.LoadFromFile( '..\..\_DATA\Earth.jpg' );
 
-          ShaderV.Source.Text := MemoV.Text;
-          ShaderP.Source.Text := MemoP.Text;
+          with ShaderV do
+          begin
+               Source.Text := MemoSVC.Text;
+
+               for T in Errors.Keys do
+               begin
+                    with MemoSVE.Lines do
+                    begin
+                         Add( '▼ ' + T   );
+                         Add( Errors[ T ] );
+                    end;
+               end;
+          end;
+
+          with ShaderP do
+          begin
+               Source.Text := MemoSPC.Text;
+
+               for T in Errors.Keys do
+               begin
+                    with MemoSPE.Lines do
+                    begin
+                         Add( '▼ ' + T   );
+                         Add( Errors[ T ] );
+                    end;
+               end;
+          end;
      end;
 end;
 
