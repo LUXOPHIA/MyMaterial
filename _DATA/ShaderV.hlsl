@@ -1,4 +1,4 @@
-﻿                                                                //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
+﻿//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【設定】
 
@@ -31,12 +31,14 @@ TResultV MainV( TSenderV _Sender )
 {
     TResultV _Result;
 
-    _Result.Scr = mul( _Sender.Pos, _FMatrixMVP );
-    _Result.Pos = mul( _Sender.Pos, _FMatrixMV  );
-    _Result.Tan = mul( _Sender.Tan, _IMatrixMV  );
-    _Result.Bin = mul( _Sender.Bin, _IMatrixMV  );
-    _Result.Nor = mul( _Sender.Nor, _IMatrixMV  );
-    _Result.Tex =      _Sender.Tex               ;
+    float4x4 tMatrixGL = transpose( _MatrixGL );
+
+    _Result.Scr = mul( _Sender.Pos, _MatrixLS );
+    _Result.Pos = mul( _Sender.Pos, _MatrixLG );
+    _Result.Tan = mul( _Sender.Tan, tMatrixGL );
+    _Result.Bin = mul( _Sender.Bin, tMatrixGL );
+    _Result.Nor = mul( _Sender.Nor, tMatrixGL );
+    _Result.Tex =      _Sender.Tex             ;
 
     return _Result;
 }

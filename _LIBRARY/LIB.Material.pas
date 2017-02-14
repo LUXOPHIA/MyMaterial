@@ -17,18 +17,18 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      TMyMaterial = class( TLuxMaterial )
      private
      protected
-       _FMatrixMVP :TShaderVarMatrix3D;
-       _FMatrixMV  :TShaderVarMatrix3D;
-       _TIMatrixMV :TShaderVarMatrix3D;
-       _Light      :TShaderVarLight;
-       _EyePos     :TShaderVarVector3D;
-       _Opacity    :TShaderVarSingle;
-       _EmisLight  :TShaderVarColorF;
-       _AmbiLight  :TShaderVarColorF;
-       _DiffRatio  :TShaderVarColorF;
-       _SpecRatio  :TShaderVarColorF;
-       _SpecShiny  :TShaderVarSingle;
-       _DiffImage  :TShaderVarTexture;
+       _MatrixLS  :TShaderVarMatrix3D;
+       _MatrixLG  :TShaderVarMatrix3D;
+       _MatrixGL  :TShaderVarMatrix3D;
+       _Light     :TShaderVarLight;
+       _EyePos    :TShaderVarVector3D;
+       _Opacity   :TShaderVarSingle;
+       _EmisLight :TShaderVarColorF;
+       _AmbiLight :TShaderVarColorF;
+       _DiffRatio :TShaderVarColorF;
+       _SpecRatio :TShaderVarColorF;
+       _SpecShiny :TShaderVarSingle;
+       _DiffImage :TShaderVarTexture;
        ///// メソッド
        procedure DoApply( const Context_:TContext3D ); override;
      public
@@ -108,12 +108,12 @@ begin
      begin
           SetShaders( _ShaderV.Shader, _ShaderP.Shader );
 
-          _FMatrixMVP.Value := CurrentModelViewProjectionMatrix;
-          _FMatrixMV .Value := CurrentMatrix;
-          _TIMatrixMV.Value := CurrentMatrix.Inverse.Transpose;
-          _Light     .Value := Lights[ 0 ];
-          _EyePos    .Value := CurrentCameraInvMatrix.M[ 3 ];
-          _Opacity   .Value := CurrentOpacity;
+          _MatrixLS.Value := CurrentModelViewProjectionMatrix;
+          _MatrixLG.Value := CurrentMatrix;
+          _MatrixGL.Value := CurrentMatrix.Inverse;
+          _Light   .Value := Lights[ 0 ];
+          _EyePos  .Value := CurrentCameraInvMatrix.M[ 3 ];
+          _Opacity .Value := CurrentOpacity;
      end;
 
      _ShaderV.SendVars( Context_ );
@@ -126,35 +126,35 @@ constructor TMyMaterial.Create;
 begin
      inherited;
 
-     _FMatrixMVP := TShaderVarMatrix3D.Create( '_FMatrixMVP' );
-     _FMatrixMV  := TShaderVarMatrix3D.Create( '_FMatrixMV'  );
-     _TIMatrixMV := TShaderVarMatrix3D.Create( '_IMatrixMV'  );
-     _Light      := TShaderVarLight   .Create( '_Light'      );
-     _EyePos     := TShaderVarVector3D.Create( '_EyePos'     );
-     _Opacity    := TShaderVarSingle  .Create( '_Opacity'    );
-     _EmisLight  := TShaderVarColorF  .Create( '_EmisLight'  );
-     _AmbiLight  := TShaderVarColorF  .Create( '_AmbiLight'  );
-     _DiffRatio  := TShaderVarColorF  .Create( '_DiffRatio'  );
-     _SpecRatio  := TShaderVarColorF  .Create( '_SpecRatio'  );
-     _SpecShiny  := TShaderVarSingle  .Create( '_SpecShiny'  );
-     _DiffImage  := TShaderVarTexture .Create( '_DiffImage'  );
+     _MatrixLS  := TShaderVarMatrix3D.Create( '_MatrixLS'  );
+     _MatrixLG  := TShaderVarMatrix3D.Create( '_MatrixLG'  );
+     _MatrixGL  := TShaderVarMatrix3D.Create( '_MatrixGL'  );
+     _Light     := TShaderVarLight   .Create( '_Light'     );
+     _EyePos    := TShaderVarVector3D.Create( '_EyePos'    );
+     _Opacity   := TShaderVarSingle  .Create( '_Opacity'   );
+     _EmisLight := TShaderVarColorF  .Create( '_EmisLight' );
+     _AmbiLight := TShaderVarColorF  .Create( '_AmbiLight' );
+     _DiffRatio := TShaderVarColorF  .Create( '_DiffRatio' );
+     _SpecRatio := TShaderVarColorF  .Create( '_SpecRatio' );
+     _SpecShiny := TShaderVarSingle  .Create( '_SpecShiny' );
+     _DiffImage := TShaderVarTexture .Create( '_DiffImage' );
 
-     _ShaderV.Vars := [ _FMatrixMVP,
-                        _FMatrixMV ,
-                        _TIMatrixMV ];
+     _ShaderV.Vars := [ _MatrixLS ,
+                        _MatrixLG ,
+                        _MatrixGL  ];
 
-     _ShaderP.Vars := [ _FMatrixMVP,
-                        _FMatrixMV ,
-                        _TIMatrixMV,
-                        _Light     ,
-                        _EyePos    ,
-                        _Opacity   ,
-                        _EmisLight ,
-                        _AmbiLight ,
-                        _DiffRatio ,
-                        _SpecRatio ,
-                        _SpecShiny ,
-                        _DiffImage  ];
+     _ShaderP.Vars := [ _MatrixLS ,
+                        _MatrixLG ,
+                        _MatrixGL ,
+                        _Light    ,
+                        _EyePos   ,
+                        _Opacity  ,
+                        _EmisLight,
+                        _AmbiLight,
+                        _DiffRatio,
+                        _SpecRatio,
+                        _SpecShiny,
+                        _DiffImage ];
 
      _EmisLight.Value := TAlphaColorF.Create( 0, 0, 0 );
      _AmbiLight.Value := TAlphaColorF.Create( 0.1, 0.1, 0.1 );
@@ -165,18 +165,18 @@ end;
 
 destructor TMyMaterial.Destroy;
 begin
-     _FMatrixMVP.Free;
-     _FMatrixMV .Free;
-     _TIMatrixMV.Free;
-     _Light     .Free;
-     _EyePos    .Free;
-     _Opacity   .Free;
-     _EmisLight .Free;
-     _AmbiLight .Free;
-     _DiffRatio .Free;
-     _SpecRatio .Free;
-     _SpecShiny .Free;
-     _DiffImage .Free;
+     _MatrixLS .Free;
+     _MatrixLG .Free;
+     _MatrixGL .Free;
+     _Light    .Free;
+     _EyePos   .Free;
+     _Opacity  .Free;
+     _EmisLight.Free;
+     _AmbiLight.Free;
+     _DiffRatio.Free;
+     _SpecRatio.Free;
+     _SpecShiny.Free;
+     _DiffImage.Free;
 
      inherited;
 end;
