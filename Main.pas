@@ -91,6 +91,9 @@ begin
           TwoSide := True;
      end;
 
+     MemoSVC.Lines.LoadFromFile( '..\..\_DATA\ShaderV.hlsl' );
+     MemoSPC.Lines.LoadFromFile( '..\..\_DATA\ShaderP.hlsl' );
+
      with M do
      begin
           EmisLight := TAlphaColorF.Create( 0, 0, 0 );

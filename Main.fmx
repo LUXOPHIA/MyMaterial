@@ -171,6 +171,8 @@ object Form1: TForm1
           StyleLookup = ''
           TabOrder = 0
           Text = 'Vertex'
+          ExplicitSize.cx = 54.000000000000000000
+          ExplicitSize.cy = 26.000000000000000000
           object TabControlSV: TTabControl
             Align = Client
             Margins.Left = 10.000000000000000000
@@ -199,68 +201,11 @@ object Form1: TForm1
               StyleLookup = ''
               TabOrder = 0
               Text = 'Code'
+              ExplicitSize.cx = 48.000000000000000000
+              ExplicitSize.cy = 26.000000000000000000
               object MemoSVC: TMemo
                 Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
                 DataDetectorTypes = []
-                Lines.Strings = (
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
-                  ''
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
-                  ''
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
-                  ''
-                  
-                    '//##############################################################' +
-                    '################'
-                  ''
-                  'struct TSenderV               //'#38914#28857#12398#22793#25968#22411
-                  '{'
-                  '    float4 Pos :POSITION   ;  //'#20301#32622#65288#12525#12540#12459#12523#65289
-                  '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12525#12540#12459#12523#65289
-                  '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12525#12540#12459#12523#65289
-                  '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12525#12540#12459#12523#65289
-                  '    float4 Tex :TEXCOORD   ;  //'#12486#12463#12473#12481#12515#24231#27161
-                  '};'
-                  ''
-                  'struct TResultV               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
-                  '{'
-                  '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
-                  '    float4 Pos :TEXCOORD0  ;  //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Tex :TEXCOORD1  ;  //'#12486#12463#12473#12481#12515#24231#27161
-                  '};'
-                  ''
-                  
-                    '////////////////////////////////////////////////////////////////' +
-                    '////////////////'
-                  ''
-                  'TResultV MainV( TSenderV _Sender )'
-                  '{'
-                  '    TResultV _Result;'
-                  ''
-                  '    _Result.Scr = mul( _Sender.Pos, _FMatrixMVP );'
-                  '    _Result.Pos = mul( _Sender.Pos, _FMatrixMV  );'
-                  '    _Result.Tan = mul( _Sender.Tan, _IMatrixMV  );'
-                  '    _Result.Bin = mul( _Sender.Bin, _IMatrixMV  );'
-                  '    _Result.Nor = mul( _Sender.Nor, _IMatrixMV  );'
-                  '    _Result.Tex =      _Sender.Tex               ;'
-                  ''
-                  '    return _Result;'
-                  '}'
-                  ''
-                  
-                    '//##############################################################' +
-                    '################'
-                  ''
-                  '')
                 StyledSettings = [Size, FontColor]
                 TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
                 Align = Client
@@ -272,7 +217,7 @@ object Form1: TForm1
                 Size.Height = 442.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
-                Viewport.Width = 700.000000000000000000
+                Viewport.Width = 716.000000000000000000
                 Viewport.Height = 438.000000000000000000
               end
             end
@@ -287,6 +232,8 @@ object Form1: TForm1
               StyleLookup = ''
               TabOrder = 0
               Text = 'Error'
+              ExplicitSize.cx = 46.000000000000000000
+              ExplicitSize.cy = 26.000000000000000000
               object MemoSVE: TMemo
                 Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
                 DataDetectorTypes = []
@@ -316,6 +263,8 @@ object Form1: TForm1
           StyleLookup = ''
           TabOrder = 0
           Text = 'Pixel'
+          ExplicitSize.cx = 45.000000000000000000
+          ExplicitSize.cy = 26.000000000000000000
           object TabControlSP: TTabControl
             Align = Client
             Margins.Left = 10.000000000000000000
@@ -349,171 +298,6 @@ object Form1: TForm1
               object MemoSPC: TMemo
                 Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
                 DataDetectorTypes = []
-                Lines.Strings = (
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#23450#25968#12305
-                  ''
-                  'static const float Pi = 3.141592653589793;'
-                  ''
-                  'static const float Pi2 = Pi * 2.0;'
-                  ''
-                  'static const float P2i = Pi / 2.0;'
-                  ''
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#35373#23450#12305
-                  ''
-                  'SamplerState _SamplerState {};'
-                  ''
-                  
-                    '//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$' +
-                    '$$$$$$$$$$$$$$$$'#12304#12523#12540#12481#12531#12305
-                  ''
-                  'float Pow2( float X_ )'
-                  '{'
-                  '    return X_ * X_;'
-                  '}'
-                  ''
-                  'float Roo2( float X_ )'
-                  '{'
-                  '    return sqrt( X_ );'
-                  '}'
-                  ''
-                  'float2 VectorToSky( float3 Vector_ )'
-                  '{'
-                  '    float2 _Result;'
-                  ''
-                  '    _Result.x = ( Pi - atan2( -Vector_.z, -Vector_.x ) ) / Pi2;'
-                  '    _Result.y =        acos ( -Vector_.y             )   / Pi ;'
-                  ''
-                  '    return _Result;'
-                  '}'
-                  ''
-                  'float Fresnel( float3 EyeVec_, float3 NorVec_, float RefI_ )'
-                  '{'
-                  '    float N = Pow2( RefI_ );'
-                  '    float C = dot( EyeVec_, NorVec_ );'
-                  '    float G = sqrt( N + Pow2( C ) - 1 );'
-                  '    float NC = N * C;'
-                  '    return ( Pow2( (  C - G ) / (  C + G ) )'
-                  '           + Pow2( ( NC - G ) / ( NC + G ) ) ) / 2;'
-                  ''
-                  '    /* '#36817#20284
-                  '    float R = pow( ( RefI_ - 1 ) / ( RefI_ + 1 ), 2 );'
-                  '    float C = dot( EyeVec_, NorVec_ );'
-                  '    return R + ( 1 - R ) * pow( 1 - C, 5 );'
-                  '    */'
-                  '}'
-                  ''
-                  
-                    '//##############################################################' +
-                    '################'
-                  ''
-                  'struct TSenderP               //'#12501#12521#12464#12513#12531#12488#12398#22793#25968#22411
-                  '{'
-                  '    float4 Scr :SV_Position;  //'#20301#32622#65288#12473#12463#12522#12540#12531#65289
-                  '    float4 Pos :TEXCOORD0  ;  //'#20301#32622#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Tan :TANGENT    ;  //'#25509#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Bin :BINORMAL   ;  //'#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Nor :NORMAL     ;  //'#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  '    float4 Tex :TEXCOORD1  ;  //'#12486#12463#12473#12481#12515#24231#27161
-                  '};'
-                  ''
-                  'struct TResultP               //'#12500#12463#12475#12523#12398#22793#25968#22411
-                  '{'
-                  '    float4 Col :SV_Target  ;  //'#33394
-                  '};'
-                  ''
-                  
-                    '////////////////////////////////////////////////////////////////' +
-                    '////////////////'
-                  ''
-                  'TResultP MainP( TSenderP _Sender )'
-                  '{'
-                  '    TResultP _Result;'
-                  ''
-                  
-                    '    float3 N = normalize( _Sender.Nor.xyz );                    ' +
-                    '                //'#34920#38754#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  
-                    '    float3 T = normalize( _Sender.Tan.xyz );                    ' +
-                    '                //'#34920#38754#25509#32218#65288#12464#12525#12540#12496#12523#65289
-                  
-                    '    float3 B = normalize( _Sender.Bin.xyz );                    ' +
-                    '                //'#34920#38754#24467#27861#32218#65288#12464#12525#12540#12496#12523#65289
-                  
-                    '    float3 L = -_Light.Dir.xyz;                                 ' +
-                    '                //'#20809#32218#26041#21521#65288#12464#12525#12540#12496#12523#65289
-                  
-                    '    float3 V = normalize( _EyePos.xyz - _Sender.Pos.xyz );      ' +
-                    '                //'#35222#32218#26041#21521#65288#12464#12525#12540#12496#12523#65289
-                  
-                    '    float3 H = normalize( L + V );                              ' +
-                    '                //'#12495#12540#12501#12505#12463#12488#12523
-                  ''
-                  
-                    '    //----------------------------------------------------------' +
-                    '----------------'
-                  ''
-                  
-                    '    if ( dot( N, V ) < 0 ) N = -N;                              ' +
-                    '                //'#35023#38754#12398#27861#32218#12434#21453#36578
-                  ''
-                  
-                    '    clip( -_Sender.Pos.z );                                     ' +
-                    '                //'#21322#29699#12398#25551#30011#12434#12461#12515#12531#12475#12523
-                  ''
-                  
-                    '    //----------------------------------------------------------' +
-                    '----------------'
-                  ''
-                  
-                    '    float LD = max( dot( N, L ), 0.0 );                         ' +
-                    '                //'#20809#32218#25313#25955#21453#23556#29575
-                  ''
-                  
-                    '    float4 D = _DiffImage.Sample( _SamplerState, _Sender.Tex.xy ' +
-                    ');              //'#25313#25955#21453#23556#29575#12510#12483#12503#33394
-                  ''
-                  
-                    '    float4 CD = ( _AmbiLight + _Light.Col * LD ) * ( _DiffRatio ' +
-                    '* D );          //'#25313#25955#21453#23556#20809
-                  ''
-                  
-                    '    //----------------------------------------------------------' +
-                    '----------------'
-                  ''
-                  
-                    '    float LS = pow( max( dot( N, H ), 0.0 ), _SpecShiny );      ' +
-                    '                //'#20809#32218#37857#38754#21453#23556#29575
-                  ''
-                  
-                    '    float4 CS = ( _Light.Col * LS ) * _SpecRatio;               ' +
-                    '                //'#20809#32218#37857#38754#21453#23556#20809
-                  ''
-                  
-                    '    //----------------------------------------------------------' +
-                    '----------------'
-                  ''
-                  '    _Result.Col = _EmisLight + CD + CS;'
-                  ''
-                  
-                    '    //----------------------------------------------------------' +
-                    '----------------'
-                  ''
-                  '    _Result.Col.a = 1;'
-                  ''
-                  '    _Result.Col = _Opacity * _Result.Col;'
-                  ''
-                  '    return _Result;'
-                  '}'
-                  ''
-                  
-                    '//##############################################################' +
-                    '################'
-                  ''
-                  '')
                 StyledSettings = [Size, Style, FontColor]
                 TextSettings.Font.Family = #65325#65331' '#12468#12471#12483#12463
                 Align = Client
@@ -525,7 +309,7 @@ object Form1: TForm1
                 Size.Height = 442.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
-                Viewport.Width = 700.000000000000000000
+                Viewport.Width = 716.000000000000000000
                 Viewport.Height = 438.000000000000000000
               end
             end
